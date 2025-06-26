@@ -339,10 +339,10 @@
                 <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold gradient-text breathing-text mb-6 leading-tight">TotemAI</h1>
                 <p class="text-lg md:text-xl lg:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">重新定义需求交付，让AI充分释放创造力</p>
                 <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <button class="bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-4 rounded-full text-lg font-medium glow-effect hover:scale-105 transition-transform">
+                    <button id="startJourneyBtn" class="bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-4 rounded-full text-lg font-medium glow-effect hover:scale-105 transition-transform">
                         <i class="fas fa-rocket mr-2"></i>开启AI创造之旅
                     </button>
-                    <button class="border border-purple-400 px-8 py-4 rounded-full text-lg font-medium hover:bg-purple-500/20 transition-all hover:border-purple-300">
+                    <button id="bookDemoBtn" class="border border-purple-400 px-8 py-4 rounded-full text-lg font-medium hover:bg-purple-500/20 transition-all hover:border-purple-300">
                         <i class="fas fa-play mr-2"></i>预约产品演示
                     </button>
                 </div>
@@ -473,7 +473,7 @@
         </section>
 
         <!-- 产品矩阵展示区 -->
-        <section class="py-20 bg-slate-900 relative">
+        <section id="productMatrix" class="py-20 bg-slate-900 relative">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">产品生态矩阵</h2>
@@ -715,6 +715,82 @@
         </footer>
     </div>
 
+    <!-- 预约演示弹窗 -->
+    <div id="demoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-slate-800 rounded-2xl p-8 max-w-md w-full mx-4 relative">
+            <!-- 关闭按钮 -->
+            <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <!-- 弹窗标题 -->
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-calendar-alt text-2xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold gradient-text mb-2">预约产品演示</h3>
+                <p class="text-gray-400">填写信息，我们将尽快与您联系</p>
+            </div>
+            
+            <!-- 表单 -->
+            <form id="demoForm" class="space-y-4">
+                <div>
+                    <label class="block text-gray-300 text-sm font-medium mb-2">姓名 *</label>
+                    <input type="text" id="userName" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors" placeholder="请输入您的姓名">
+                </div>
+                
+                <div>
+                    <label class="block text-gray-300 text-sm font-medium mb-2">公司 *</label>
+                    <input type="text" id="company" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors" placeholder="请输入公司名称">
+                </div>
+                
+                <div>
+                    <label class="block text-gray-300 text-sm font-medium mb-2">岗位 *</label>
+                    <input type="text" id="position" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors" placeholder="请输入您的岗位">
+                </div>
+                
+                <div>
+                    <label class="block text-gray-300 text-sm font-medium mb-2">手机号 *</label>
+                    <input type="tel" id="phone" required class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors" placeholder="请输入手机号码">
+                </div>
+                
+                <div>
+                    <label class="block text-gray-300 text-sm font-medium mb-2">感兴趣的产品</label>
+                    <select id="interestedProduct" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:border-purple-500 focus:outline-none transition-colors">
+                        <option value="">请选择感兴趣的产品</option>
+                        <option value="MoMA">MoMA - 产品经理智能设计伙伴</option>
+                        <option value="Pika">Pika - 零门槛Web应用生成器</option>
+                        <option value="Dex">Dex - 开发者AI编程助手</option>
+                        <option value="All">全部产品</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-gray-300 text-sm font-medium mb-2">备注</label>
+                    <textarea id="remarks" rows="3" class="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:outline-none transition-colors resize-none" placeholder="请描述您的具体需求或疑问"></textarea>
+                </div>
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 py-3 px-6 rounded-lg font-medium hover:scale-105 transition-transform glow-effect">
+                    <i class="fas fa-paper-plane mr-2"></i>提交预约
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 提交成功提示弹窗 -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-slate-800 rounded-2xl p-8 max-w-sm w-full mx-4 text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-check text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold text-green-400 mb-2">提交成功！</h3>
+            <p class="text-gray-300 mb-6">我们已收到您的预约申请，将在24小时内与您联系。</p>
+            <button id="closeSuccessModal" class="bg-gradient-to-r from-green-500 to-blue-500 py-2 px-6 rounded-lg font-medium hover:scale-105 transition-transform">
+                确定
+            </button>
+        </div>
+    </div>
+
     <script>
         // 导航栏滚动效果
         window.addEventListener('scroll', () => {
@@ -766,7 +842,7 @@
         // 产品卡片点击事件
         document.querySelectorAll('.product-card button').forEach(btn => {
             btn.addEventListener('click', function() {
-                const productName = this.textContent.includes('MoMA') ? 'MoMA' : 
+                const productName = this.textContent.includes('Moma') ? 'Moma' : 
                                    this.textContent.includes('Pika') ? 'Pika' : 'Dex';
                 
                 // 添加点击反馈
@@ -872,6 +948,110 @@
             }
         `;
         document.head.appendChild(style);
+
+        // 主横幅按钮功能
+        document.getElementById('startJourneyBtn').addEventListener('click', function() {
+            // 平滑滚动到产品生态矩阵区域
+            document.getElementById('productMatrix').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        document.getElementById('bookDemoBtn').addEventListener('click', function() {
+            // 显示预约演示弹窗
+            document.getElementById('demoModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // 禁止背景滚动
+        });
+
+        // 弹窗关闭功能
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('demoModal').classList.add('hidden');
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+        });
+
+        // 点击弹窗外部关闭
+        document.getElementById('demoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // 表单提交功能
+        document.getElementById('demoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const formData = {
+                name: document.getElementById('userName').value,
+                company: document.getElementById('company').value,
+                position: document.getElementById('position').value,
+                phone: document.getElementById('phone').value,
+                interestedProduct: document.getElementById('interestedProduct').value,
+                remarks: document.getElementById('remarks').value
+            };
+            
+            // 简单的表单验证
+            if (!formData.name || !formData.company || !formData.position || !formData.phone) {
+                alert('请填写所有必填项');
+                return;
+            }
+            
+            // 手机号格式验证
+            const phoneRegex = /^1[3-9]\d{9}$/;
+            if (!phoneRegex.test(formData.phone)) {
+                alert('请输入正确的手机号码');
+                return;
+            }
+            
+            // 模拟提交过程
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>提交中...';
+            submitBtn.disabled = true;
+            
+            // 模拟网络请求延迟
+            setTimeout(() => {
+                // 隐藏预约弹窗
+                document.getElementById('demoModal').classList.add('hidden');
+                
+                // 显示成功提示
+                document.getElementById('successModal').classList.remove('hidden');
+                
+                // 重置表单
+                this.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // 在实际项目中，这里应该发送数据到服务器
+                console.log('预约信息:', formData);
+            }, 2000);
+        });
+
+        // 成功提示弹窗关闭功能
+        document.getElementById('closeSuccessModal').addEventListener('click', function() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+        });
+
+        // CTA区域的按钮功能（底部的两个按钮）
+        document.querySelectorAll('section:last-of-type button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const text = this.textContent.trim();
+                if (text.includes('免费开始创造')) {
+                    // 跳转到产品矩阵
+                    document.getElementById('productMatrix').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                } else if (text.includes('预约专属演示')) {
+                    // 显示预约弹窗
+                    document.getElementById('demoModal').classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
     </script>
 </body>
 </html>
